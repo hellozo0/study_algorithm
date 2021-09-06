@@ -21,5 +21,3 @@ public class Main10872 {
     }
 }
 
-
-// 9/6 
