@@ -26,3 +26,13 @@ int solution(int num) {
     
     return answer;
 }
+
+// for문을 쓰는게 더 깔끔하고 좋은듯!
+// for(int i=0; i<500; i++){
+//     if (answer == 1)
+//         return i;
+
+//     answer = (answer % 2 == 0) ? (answer / 2) : (3 * answer + 1); 
+// }
+
+// return -1;
