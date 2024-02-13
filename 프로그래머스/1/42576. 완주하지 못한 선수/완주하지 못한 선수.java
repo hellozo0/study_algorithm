@@ -4,6 +4,7 @@ class Solution {
     public String solution(String[] participant, String[] completion) {
         
         HashMap<String, Integer> map = new HashMap<>();
+        String answer = "";
         
         for(int i = 0; i < participant.length; i++){
             if(map.containsKey(participant[i])){
@@ -21,16 +22,10 @@ class Solution {
             }
         }
         
-        String answer = "";
-        
         for(String key : map.keySet() ){
             answer = key;
         }
         
         return answer;
-        
-        // map.forEach((key, value) -> {
-        //     return key;
-        // });
     }
 }
