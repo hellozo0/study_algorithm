@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-public class Main{
+public class Main {
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -17,6 +17,8 @@ public class Main{
             dp[i] = i;
 
             // 점화식 찾아내기
+            // 1 -> 1 / 2-> 1+1 / 3-> 1+1+1 / 4 -> 2^2 ...
+            // 1,4,9 이런애들은 개수가 1
             for (int j = 1; j * j <= i; j++) {
                 if (dp[i] > dp[i - j * j] + 1) {
                     dp[i] = dp[i - j * j] + 1;
