@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/12903. 가운데 글자 가져오기" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/12906. 같은 숫자는 싫어" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/12910. 나누어 떨어지는 숫자 배열" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/12912. 두 정수 사이의 합" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/12916. 문자열 내 p와 y의 개수" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/12917. 문자열 내림차순으로 배치하기" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/12918. 문자열 다루기 기본" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/12919. 서울에서 김서방 찾기" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/12922. 수박수박수박수박수박수？" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/12925. 문자열을 정수로 바꾸기" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/12926. 시저 암호" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/12928. 약수의 합" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/12930. 이상한 문자 만들기" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/12931. 자릿수 더하기" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/12932. 자연수 뒤집어 배열로 만들기" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/12933. 정수 내림차순으로 배치하기" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/12934. 정수 제곱근 판별" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/12935. 제일 작은 수 제거하기" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/12937. 짝수와 홀수" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/12940. 최대공약수와 최소공배수" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/12943. 콜라츠 추측" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/12944. 평균 구하기" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/12947. 하샤드 수" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/12948. 핸드폰 번호 가리기" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/12950. 행렬의 덧셈" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/12954. x만큼 간격이 있는 n개의 숫자" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/12969. 직사각형 별찍기" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/12982. 예산" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/131705. 삼총사" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/17681. ［1차］ 비밀지도" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/176963. 추억 점수" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/68935. 3진법 뒤집기" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/70128. 내적" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/76501. 음양 더하기" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/77884. 약수의 개수와 덧셈" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/81301. 숫자 문자열과 영단어" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/82612. 부족한 금액 계산하기" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/86051. 없는 숫자 더하기" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/86491. 최소직사각형" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/87389. 나머지가 1이 되는 수 찾기" isTestSource="false" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
