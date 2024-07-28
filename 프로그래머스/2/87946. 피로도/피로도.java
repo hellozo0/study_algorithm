@@ -18,7 +18,6 @@ class Solution {
             if(visited[i] || dungeons[i][0] > hp){
                 continue;
             }
-            
             visited[i] = true;
             dfs(depth+1, hp - dungeons[i][1], dungeons);
             visited[i] = false;
