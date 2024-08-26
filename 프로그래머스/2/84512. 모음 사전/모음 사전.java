@@ -1,29 +1,33 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+
 class Solution {
-    static String[] arr;
-    static List<String> list;
+    
+    static String[] alphabet = {"A", "E", "I", "O", "U"};
+    static ArrayList<String> list;
+    // static int num = 0;
     
     public int solution(String word) {
-        int answer = 0;
         
         list = new ArrayList<>();
-        arr = new String[]{"A", "E", "I", "O", "U"};
-
-        recursion(word, "", 0);
+        
+        //다 저장하기
+        dfs("",0);
         
         return list.indexOf(word);
+        
     }
     
-    static void recursion(String word, String str, int depth) {
-        list.add(str);
+    private static void dfs(String s, int length){
+        if(length > 5) return;
         
-        if(depth == 5) {
-            return;
+        list.add(s);
+        
+        // System.out.println("num : " + num + ", s : " + s + "------");    
+        // num++;
+        for(int i = 0; i < 5; i++){
+            dfs(s + alphabet[i], length+1);
         }
         
-        for (int i = 0; i < arr.length; i++) {
-            recursion(word, str + arr[i], depth +1);
-        }
     }
+    
 }
