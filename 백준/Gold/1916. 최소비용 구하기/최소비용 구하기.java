@@ -3,96 +3,75 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.PriorityQueue;
-import java.util.Queue;
 import java.util.StringTokenizer;
 
-public class Main{
+import org.w3c.dom.Node;
 
-    static List<Node>[] list;
-    static int[] dp;
-    static boolean[] check;
-
+public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = null;
+        int N = Integer.parseInt(br.readLine());
+        int M = Integer.parseInt(br.readLine());
 
-        int n = Integer.parseInt(br.readLine());
-        int m = Integer.parseInt(br.readLine());
+        //1. 자료구조 선언
+        boolean[] visited = new boolean[N+1];
+        int[] distance = new int[N+1];
+        ArrayList<Edge>[] list = new ArrayList[N+1];
+        PriorityQueue<Edge> pq = new PriorityQueue<>();
 
-        /*
-        * 다익스트라 개념 구글링
-        * - 주로 Node 객체 생성해서 많이 품
-        *   1. 벨만포드 알고리즘 (Bellman-Ford Algorithm)  -> 음수 간선이 포함된 상황에 사용하면 좋음
-            2. 다익스트라 알고리즘(Dijkstra Algorithm)  -> 하나의 정점에서 다른 모든 정점의 최단 경로
-            3. 플로이드 와샬 알고리즘(Floyd-Warshall Algorithm) -> 모든 정점에서 모든 정점의 최단 경로
-        */
-
-
-        list = new ArrayList[n + 1];
-        dp = new int[n + 1];
-        check = new boolean[n + 1];
-
-        for (int i = 1; i < n + 1; i++) {
-            list[i] = new ArrayList<>();
+        //2. 초기화
+        for(int i = 1; i < N+1; i++){
+            list[i] = new ArrayList<Edge>();
+            distance[i] = Integer.MAX_VALUE;
         }
-
-        for (int i = 0; i < m; i++) {
-            st = new StringTokenizer(br.readLine());
-            int from = Integer.parseInt(st.nextToken());
-            int to = Integer.parseInt(st.nextToken());
-            int cost = Integer.parseInt(st.nextToken());
-
-            list[from].add(new Node(to, cost));
+        for(int i = 0; i < M; i++){
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            int u = Integer.parseInt(st.nextToken());
+            int w = Integer.parseInt(st.nextToken());
+            int v = Integer.parseInt(st.nextToken());
+            list[u].add(new Edge(w,v));
         }
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int startNode = Integer.parseInt(st.nextToken());
+        int targetNode = Integer.parseInt(st.nextToken());
 
-        st = new StringTokenizer(br.readLine());
-        int start = Integer.parseInt(st.nextToken());
-        int destination = Integer.parseInt(st.nextToken());
+        //3. 다익스트라 시작
+        pq.add(new Edge(startNode,0));
+        distance[startNode] = 0;
 
+        while (!pq.isEmpty()){
+            Edge now = pq.poll();
+            int nowCity = now.node;
 
-        dijkstra(start);
-        System.out.println(dp[destination]);
+            if(visited[nowCity]) continue;;
+            visited[nowCity] = true;
 
-    }
-
-    static void dijkstra(int start) {
-        Queue<Node> q = new PriorityQueue<>();
-        Arrays.fill(dp, Integer.MAX_VALUE);
-
-        q.add(new Node(start, 0));
-        dp[start] = 0;
-
-        while (!q.isEmpty()) {
-            Node node = q.poll();
-            int to = node.to;
-
-            if (check[to]) continue;
-
-            check[node.to] = true;
-            for (Node next : list[to]) {
-                if (dp[next.to] >= dp[to] + next.cost) {
-                    dp[next.to] = dp[to] + next.cost;
-                    q.add(new Node(next.to, dp[next.to]));
+            for(Edge next : list[nowCity]){ //다음노드들
+                int nextCity = next.node;
+                int nextBus = next.value;
+                if(distance[nextCity] > distance[nowCity]+ nextBus) {
+                    distance[nextCity] = distance[nowCity]+ nextBus;
+                    pq.add(new Edge(nextCity, distance[nextCity]));
                 }
             }
         }
+        System.out.println(distance[targetNode]); //무조건 가는 길이 있느건가? 만약에 없으면? 뭐를 출력해라 이런게 없다
+
     }
 }
 
-class Node implements Comparable<Node> {
-    int to;
-    int cost;
+class Edge implements Comparable<Edge>{
+    int node;
+    int value;
 
-    public Node(int to, int cost) {
-        this.to = to;
-        this.cost = cost;
+    Edge(int node, int value){
+        this.node = node;
+        this.value = value;
     }
 
     @Override
-    public int compareTo(Node o) {
-        return this.cost - o.cost;
+    public int compareTo(Edge e){
+        return value - e.value;
     }
 }
