@@ -1,101 +1,106 @@
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.PriorityQueue;
-import java.util.Stack;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class Main {
-	private static int N;
-	private static int M;
-	private static int start;
-	private static int target;
     private static int answer;
-	private static boolean[] visited;
-	private static int[] distance;
-	private static ArrayList<Edge>[] list;
+    private static int money;
+    private static ArrayList<Edge>[] list;
+    private static int[] distance;
 
-	public static void main(String[] args) throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st = new StringTokenizer(br.readLine());
-		N = Integer.parseInt(st.nextToken());
-		M = Integer.parseInt(st.nextToken());
-		start = Integer.parseInt(st.nextToken());
-		target = Integer.parseInt(st.nextToken());
-		int money = Integer.parseInt(st.nextToken());
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int N = Integer.parseInt(st.nextToken());
+        int M = Integer.parseInt(st.nextToken());
+        int start = Integer.parseInt(st.nextToken());
+        int target = Integer.parseInt(st.nextToken());
+        money = Integer.parseInt(st.nextToken());
 
-		//1. 자료구조 선언
-		visited = new boolean[N + 1];
-		distance = new int[N + 1];
-		list = new ArrayList[N + 1];
-		Stack<Edge> stack = new Stack<>();
-		answer = Integer.MAX_VALUE;
-        int minPay = Integer.MIN_VALUE;
+        // 자료구조 선언 및 초기화
+        list = new ArrayList[N + 1];
+        distance = new int[N + 1];
+        answer = 10001;
 
-		//2. 초기화
-		for (int i = 1; i < N + 1; i++) {
-			list[i] = new ArrayList<>();
-			distance[i] = Integer.MAX_VALUE;
-		}
-
-		for (int i = 0; i < M; i++) {
-			st = new StringTokenizer(br.readLine());
-			int u = Integer.parseInt(st.nextToken());
-			int w = Integer.parseInt(st.nextToken());
-			int v = Integer.parseInt(st.nextToken());
-			list[u].add(new Edge(w, v));
-		}
-		
-		distance[start] = 0;
-        visited[start] = true;
-        dfs(new Edge(start,0), money, minPay);
-
-		System.out.println(answer == Integer.MAX_VALUE ? -1 : answer);
-	}
-
-	private static void dfs(Edge now, int money, int minPay) {
-		//지금 BFS처럼 2,4,3,5 이런식은데 그게아니라 DFS 형태로 탐색할 수 있게 해야함
-		// while (!pq.isEmpty()){ // 4번 먼저 들어오고, 2번 들어옴
-		// Edge now = pq.poll();
-		int nowVertex = now.vertex;
-
-		//target에 도착하는 경우 2번 생기
-		if (nowVertex == target) {
-			//처음 도착하는 경우
-			if (answer == Integer.MAX_VALUE || answer > minPay) {
-				answer = minPay;
-			}
-		}
-
-		for (Edge next : list[nowVertex]) { //2랑 4를 넣을텐데
-
-			int nextVertex = next.vertex;
-			int nextValue = next.value;
-
-			if (!visited[nextVertex] && money >= nextValue ) {
-                visited[nextVertex] = true;
-                dfs(next, money-nextValue,Math.max(minPay,nextValue));
-                visited[nextVertex] = false;
-
-			}
+        for (int i = 1; i <= N; i++) {
+            list[i] = new ArrayList<>();
         }
-	}
+
+        // 간선 정보 입력 (양방향 추가)
+        for (int i = 0; i < M; i++) {
+            st = new StringTokenizer(br.readLine());
+            int u = Integer.parseInt(st.nextToken());
+            int v = Integer.parseInt(st.nextToken());
+            int cost = Integer.parseInt(st.nextToken());
+            list[u].add(new Edge(v, cost));
+            list[v].add(new Edge(u, cost));
+        }
+
+        // 이진 탐색을 통해 최소의 최대 요금 찾기
+        binSearch(start, target);
+
+        // 결과 출력
+        System.out.println(answer == 10001 ? -1 : answer);
+    }
+
+    private static void binSearch(int start, int target) {
+        int low = 1;
+        int high = 10000;  // 문제 조건에 맞게 upper bound 수정
+        int mid;
+        while (low <= high) {
+            mid = (low + high) / 2;
+
+            // 다익스트라로 검사
+            if (dijkstra(start, target, mid)) {
+                answer = mid;    // 가능한 최대 요금이므로 answer 갱신
+                high = mid - 1;  // 더 작은 최대 요금으로 탐색
+            } else {
+                low = mid + 1;   // 더 큰 최대 요금으로 탐색
+            }
+        }
+    }
+
+    private static boolean dijkstra(int start, int target, int maxCost) {
+        Arrays.fill(distance, Integer.MAX_VALUE);
+        PriorityQueue<Edge> pq = new PriorityQueue<>();
+        distance[start] = 0;
+        pq.add(new Edge(start, 0));
+
+        while (!pq.isEmpty()) {
+            Edge current = pq.poll();
+
+            if (current.vertex == target && distance[target] <= money) {
+                return true;
+            }
+
+            if (distance[current.vertex] < current.value) continue;
+
+            for (Edge next : list[current.vertex]) {
+                if (next.value > maxCost) continue;  // 최대 요금을 넘는 간선 제외
+
+                int newDist = distance[current.vertex] + next.value;
+                if (newDist < distance[next.vertex]) {
+                    distance[next.vertex] = newDist;
+                    pq.add(new Edge(next.vertex, newDist));
+                }
+            }
+        }
+        return distance[target] <= money;
+    }
 }
 
 class Edge implements Comparable<Edge> {
-	int vertex;
-	int value;
+    int vertex;
+    int value;
 
-	Edge(int vertex, int value) {
-		this.vertex = vertex;
-		this.value = value;
-	}
+    Edge(int vertex, int value) {
+        this.vertex = vertex;
+        this.value = value;
+    }
 
-	@Override
-	public int compareTo(Edge e) {
-		return value - e.value;
-	}
-
+    @Override
+    public int compareTo(Edge e) {
+        return this.value - e.value;
+    }
 }
