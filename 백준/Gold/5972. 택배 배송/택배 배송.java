@@ -45,7 +45,7 @@ public class Main {
             visited[now.vertex] = true;
 
             for(Edge next : list[now.vertex]){ //(2,1) (4,4)
-                if(distance[next.vertex] > distance[now.vertex] + next.value) {
+                if(!visited[next.vertex] &&distance[next.vertex] > distance[now.vertex] + next.value) {
                     distance[next.vertex] = distance[now.vertex] + next.value;
                     pq.add(new Edge(next.vertex,distance[next.vertex]));
                 }
