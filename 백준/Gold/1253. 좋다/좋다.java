@@ -9,37 +9,39 @@ public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        long[] A = new long[N];
-
-        for(int i = 0; i < N;i ++){
-            A[i] = Long.parseLong(st.nextToken());
-        }
-        Arrays.sort(A);
+        int[] nums = new int[N];
         int answer = 0;
 
+        StringTokenizer st = new StringTokenizer(br.readLine());
         for(int i = 0; i < N; i++){
-            long target = A[i];
-            int start = 0;
-            int last = N-1;
+            nums[i] = Integer.parseInt(st.nextToken());
+        }
+        Arrays.sort(nums);
 
-            while (start < last) {
-                if(A[start] + A[last] == target) {
-                    if(start != i && last != i) {
+        //투포인터
+        for(int i = 0; i < N; i++) {
+            int target = nums[i];
+            int start = 0;
+            int end = N-1;
+
+            while(start < end) {
+                if(nums[start] + nums[end] > target) {
+                    end--;
+                } else if (nums[start] + nums[end] < target){
+                    start++;
+                } else { // 같을 때
+                    if(start != i && end != i) {
                         answer++;
                         break;
                     }
                     else if (start == i) {
                         start++;
                     }
-                    else if (last == i) {
-                        last--;
+                    else if (end == i) {
+                        end--;
                     }
-                } else if (A[start] + A[last] > target){
-                    last--;
-                } else {
-                    start++;
                 }
+
             }
         }
         System.out.println(answer);
