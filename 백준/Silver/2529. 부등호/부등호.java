@@ -2,64 +2,72 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.AbstractSet;
 import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.StringTokenizer;
 
-public class Main{
+import com.sun.jdi.connect.Connector;
+
+public class Main {
 
     static int k;
-    static char[] relation;
     static boolean[] visited;
-    static List<String> possible = new ArrayList<>();
+    static String[] gwalho;
+    static List<String> list = new ArrayList<>();
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         k = Integer.parseInt(br.readLine());
-        relation = new char[k];
         visited = new boolean[10];
-
+        gwalho = new String[k];
         StringTokenizer st = new StringTokenizer(br.readLine());
-        for (int i = 0; i < k; i++) {
-            relation[i] = st.nextToken().charAt(0);
+
+        for(int i = 0; i < k; i++){
+            gwalho[i] = st.nextToken();
         }
 
-        // 0부터 9까지 숫자를 시도
-        for (int i = 0; i < 10; i++) {
-            visited[i] = true;
-            dfs(1, String.valueOf(i));  //0번부터 츄라이
-            visited[i] = false;
-        }
+        //문자열 인덱스
+        tracking("",0);
 
-        possible.sort(Comparator.naturalOrder());
+        // Collections.sort(list);
+        //최대값은 맨 뒤에 저장
+        System.out.println(list.get(list.size()-1));
+        System.out.print(list.get(0));
 
-        System.out.println(possible.get(possible.size() - 1));
-        System.out.println(possible.get(0));
     }
 
-    private static void dfs(int count, String num) {
-        if (count == k + 1) { // 숫자가 k+1개가 되면 종료
-            possible.add(num);
+    static void tracking(String num, int index){
+
+        //마지막에 도달한다면
+        if(index == k+1) {
+            list.add(num);
             return;
         }
 
-        for (int i = 0; i < 10; i++) {
-            if (visited[i]) {
-                continue;
+        //09
+        for(int j = 0; j < 10; j++) {
+            if(visited[j]) continue;
+
+            //첫번째 시작이거나, 괄호 조건에 통과한다면
+            if(index == 0 || (num.length() > 0 && check((num.charAt(index - 1) - '0'), j, gwalho[index - 1]))){
+                visited[j] = true; //해당 숫자 바로 비교
+                tracking(num+j, index+1);
+                visited[j] = false;
+
             }
 
-            //이전 숫자와의 관계를 검사
-            if (check(num.charAt(count - 1) - '0', i, relation[count - 1])) {
-                visited[i] = true;
-                dfs(count + 1, num + i);
-                visited[i] = false;
-            }
         }
+
     }
 
-    private static boolean check(int x, int y, char relation) {
-        if (relation == '<') return x < y;
-        else return x > y;
+    static boolean check(int x, int y, String s) {
+        if (s.equals("<")) {
+            return x < y;
+        } else {
+            return x > y;
+        }
     }
 }
