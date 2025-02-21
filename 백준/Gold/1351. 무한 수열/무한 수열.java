@@ -5,29 +5,53 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.StringTokenizer;
 
-public class Main{
-    static int P,Q;
-    static  HashMap<Long,Long> map;
+public class Main {
+
+    static HashMap<Long,Long> map;
+    static long answer;
+    static long P;
+    static long Q;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
+
         long N = Long.parseLong(st.nextToken());
-        P = Integer.parseInt(st.nextToken());
-        Q = Integer.parseInt(st.nextToken());
+        P = Long.parseLong(st.nextToken());
+        Q = Long.parseLong(st.nextToken());
 
-        //N,P,Q 값이 엄청 크다. DP 메모리 제이션 불가  --> Hash Map
+        //예외 Case
+        if(N == 0) {
+            System.out.print(1);
+            return;
+        }
+
+        long front = N / P;
+        long back = N / Q;
+        long max = Math.max(front, back);
+
         map = new HashMap<>();
-        map.put(0L, 1L);
 
-        System.out.println(recursion(N));
+        map.put(0L,1L);
+        answer = 0L;
+
+        // for(long i = 1; i <= max; i++){
+        //     long a = (i / P);
+        //     long b = (i / Q);
+        //
+        //     map.put(i,map.get(a) + map.get(b));
+        // }
+        answer += dfs(front);
+        answer += dfs(back);
+
+        System.out.print(answer);
     }
 
-    private static long recursion(long N) {
-        if( N == 0 ) return 1;
-        if(map.containsKey(N)) return  map.get(N);
+    private static long dfs(long num){
 
-        map.put(N, recursion((N/P)) + recursion((N/Q)));
-        return map.get(N);
+        if( num == 0 ) return 1;
+        if(map.containsKey(num)) return map.get(num);
+
+        map.put(num, dfs(num/P) + dfs(num/Q));
+        return map.get(num);
     }
-
 }
