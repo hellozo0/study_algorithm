@@ -8,7 +8,6 @@ class Solution {
         
         int start = 0; 
         
-        
         for(int end = people.length-1; end >= start; end--){
             if(people[start] + people[end] <= limit) start++;
             answer++;
