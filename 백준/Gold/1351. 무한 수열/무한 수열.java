@@ -1,10 +1,10 @@
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.StringTokenizer;
 
+//coomit 안남겨서 다시 제출
 public class Main {
 
     static HashMap<Long,Long> map;
