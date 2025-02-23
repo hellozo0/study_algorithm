@@ -34,10 +34,9 @@ public class Main{
             int value = Integer.parseInt(st.nextToken());
 
             //같은 노선에 여러 가지가 올 수 있음 아래 부분에서 틀린것 같음
-            //graph[a][b] = value;
+            //graph[a][b] = value; 
             graph[a][b] = Math.min(value, graph[a][b]);
         }
-
 
         floyd();
         br.close();
