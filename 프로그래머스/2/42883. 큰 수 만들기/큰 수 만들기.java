@@ -19,11 +19,13 @@ class Solution {
             //앞에서 부터 가장 큰 수 찾기 
             for(int j = index; j <= i+ k; j++){ //[0 ~ k = 2] ==> [다시 2부터 i = 1, k = 2 ~ 3]
                 if(number.charAt(j) > max){
+                    
                     max = number.charAt(j); //1924의 경우
                     index = j+1; //만약 j가 1일 떄 였으면 2부터 다시 비교 
                 }
             }
             sb.append(Character.toString(max));
+            
         }
         
         return sb.toString();
