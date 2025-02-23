@@ -24,7 +24,6 @@ class Solution
         
         if( stack.isEmpty()) answer = 1;
         else answer = 0; 
-        
 
         return answer;
     }
