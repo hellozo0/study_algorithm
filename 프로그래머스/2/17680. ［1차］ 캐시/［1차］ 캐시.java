@@ -1,30 +1,30 @@
+// 0 ≦ cacheSize ≦ 30 
+//cities는 100,000개 가 맥시멈이다. 
+
 import java.util.*;
 
 class Solution {
     public int solution(int cacheSize, String[] cities) {
         int answer = 0;
+    
         ArrayList<String> list = new ArrayList<>();
         
-        if(cacheSize == 0){ 
-            return cities.length * 5;
-        }
+        if(cacheSize == 0) return (5 * cities.length);
         
-        for(int i = 0; i < cities.length; i++){
+
+        for(int i = 0; i < cities.length; i++) {
+            String city = cities[i].toLowerCase();
             
-            String city = cities[i].toUpperCase();
-            
-            if( list.contains(city) ){
-                list.remove(city);
-                list.add(city);
-                answer += 1;
+            if(list.contains(city)) {
+                answer++;
+                list.remove(city); //해당 객체 를 삭제
+                list.add(city); // 해당 객체를 맨 뒤에 삽입
             } else {
-                // 찼으면 제거 
-                if(list.size() == cacheSize){ 
+                if(list.size() == cacheSize) {
                     list.remove(0);
                 }
-                // 그 후 추가 
-                list.add(city); 
                 answer += 5;
+                list.add(city);  
             }
         }
         
